@@ -1,3 +1,4 @@
+import 'package:clear/screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart' as ficon;
 import 'package:fluttericon/elusive_icons.dart' as eicon;
@@ -102,7 +103,9 @@ class _MainPageState extends State<MainPage> {
           });
         },
       ),
-      body: <Widget>[][_currentIndex],
+      body: <Widget>[
+        HomePage(),
+      ][_currentIndex],
     );
   }
 }
