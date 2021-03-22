@@ -1,5 +1,8 @@
+import 'package:clear/data/custom_widgets.dart';
+import 'package:clear/screens/Invoics_page.dart';
 import 'package:clear/screens/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttericon/font_awesome5_icons.dart' as ficon;
 import 'package:fluttericon/elusive_icons.dart' as eicon;
 import 'package:fluttericon/entypo_icons.dart' as enicon;
@@ -34,41 +37,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'clear',
-          style: GoogleFonts.lato(
-            fontSize: 30,
-            color: Colors.black,
-            fontWeight: FontWeight.w700,
-            letterSpacing: -0.9,
-          ),
-        ),
-        elevation: 0,
-        centerTitle: true,
-        backgroundColor: Color(0xFFF3F3FD),
-        leading: Icon(
-          Icons.sort_rounded,
-          color: Colors.grey[700],
-          size: 32,
-        ),
-        actions: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(
-              right: 20,
-            ),
-            child: CircleAvatar(
-              radius: 18,
-              backgroundColor: Color(0xFFDEDFE9),
-              child: Icon(
-                Icons.notifications,
-                size: 20,
-                color: Colors.black,
-              ),
-            ),
-          ),
-        ],
-      ),
+      appBar: _currentIndex == 0 ? homePageAppbar : invoicesAppbar,
       bottomNavigationBar: BottomNavigationBar(
         iconSize: 20,
         selectedFontSize: 12,
@@ -105,6 +74,8 @@ class _MainPageState extends State<MainPage> {
       ),
       body: <Widget>[
         HomePage(),
+        Container(),
+        InvoicesPage(),
       ][_currentIndex],
     );
   }

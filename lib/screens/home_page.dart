@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              height: 160,
+              height: 147,
               padding: EdgeInsets.only(top: 40),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
