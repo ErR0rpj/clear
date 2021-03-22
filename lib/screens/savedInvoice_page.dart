@@ -1,24 +1,49 @@
+import 'dart:math';
+
 import 'package:clear/data/custom_widgets.dart';
-import 'package:clear/screens/savedInvoice_page.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttericon/entypo_icons.dart';
+import 'package:fluttericon/font_awesome5_icons.dart';
+import 'package:fluttericon/typicons_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CreateInvoice extends StatelessWidget {
+class SavedInvoice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 65,
-        title: Text(
-          'Invoice',
-          style: GoogleFonts.lato(
-              fontSize: 18,
-              color: Colors.black,
-              letterSpacing: -0.3,
-              fontWeight: FontWeight.w500),
+        title: Row(
+          children: [
+            Text(
+              'Invoice #CT-3',
+              style: GoogleFonts.lato(
+                  fontSize: 18,
+                  color: Colors.black,
+                  letterSpacing: -0.3,
+                  fontWeight: FontWeight.w500),
+            ),
+            SizedBox(width: 10),
+            Container(
+              height: 30,
+              width: 60,
+              decoration: BoxDecoration(
+                color: Colors.blue[100],
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+              ),
+              child: Center(
+                  child: Text(
+                'Saved',
+                style: GoogleFonts.lato(
+                  color: Colors.black,
+                  fontSize: 13,
+                ),
+              )),
+            ),
+          ],
         ),
         elevation: 0,
-        leadingWidth: 30,
+        leadingWidth: 50,
         backgroundColor: Colors.white,
         leading: TextButton(
           onPressed: () {
@@ -35,9 +60,29 @@ class CreateInvoice extends StatelessWidget {
             padding: EdgeInsets.only(
               right: 20,
             ),
-            child: Icon(
-              Icons.settings_outlined,
-              color: Colors.grey[700],
+            child: Row(
+              children: [
+                Icon(
+                  Typicons.pencil,
+                  color: Colors.grey,
+                  size: 20,
+                ),
+                SizedBox(width: 15),
+                Icon(
+                  FontAwesome5.brush,
+                  color: Colors.grey,
+                  size: 20,
+                ),
+                SizedBox(width: 15),
+                Transform.rotate(
+                  angle: 90 * pi / 180,
+                  child: Icon(
+                    Entypo.dot_3,
+                    color: Colors.grey,
+                    size: 20,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -64,114 +109,75 @@ class CreateInvoice extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'INVOICE #CT-3',
+                              'Invoice',
                               style: GoogleFonts.lato(
-                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            Text(
+                              'Invoice #CT-3',
+                              style: GoogleFonts.lato(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Bill to',
+                              style: GoogleFonts.lato(
+                                fontWeight: FontWeight.w500,
                                 fontSize: 15,
                               ),
                             ),
                             Text(
-                              'Edit',
+                              'Abc',
                               style: GoogleFonts.lato(
-                                color: Colors.indigo,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
                               ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          '22 Mar 2021',
-                          style: GoogleFonts.lato(
-                              color: Colors.grey, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 18),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 18),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'CUSTOMER',
-                              style: GoogleFonts.lato(
-                                color: Colors.grey,
-                                fontSize: 12,
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  'Edit',
-                                  style: GoogleFonts.lato(
-                                    color: Colors.indigo,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                SizedBox(width: 15),
-                                Text(
-                                  'Change',
-                                  style: GoogleFonts.lato(
-                                    color: Colors.indigo,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
                             ),
                           ],
                         ),
                         SizedBox(height: 8),
-                        Text(
-                          'Abc',
-                          style: GoogleFonts.lato(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Text(
-                          'Unregistered Party',
-                          style: GoogleFonts.lato(color: Colors.grey),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 18),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 18),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'ITEMS (OPTIONAL)',
+                              'Created',
+                              style: GoogleFonts.lato(
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15,
+                              ),
+                            ),
+                            Text(
+                              '22 Mar 2021',
                               style: GoogleFonts.lato(
                                 color: Colors.grey,
                                 fontSize: 12,
                               ),
                             ),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        Divider(),
+                        SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
                             Text(
-                              'Add/Edit Items',
+                              'ITEMS',
                               style: GoogleFonts.lato(
-                                color: Colors.indigo,
-                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                                fontSize: 12,
                               ),
                             ),
                           ],
@@ -247,13 +253,6 @@ class CreateInvoice extends StatelessWidget {
                           ],
                         ),
                         SizedBox(height: 10),
-                        Text('Add Invoice Discount',
-                            style: GoogleFonts.lato(
-                              color: Colors.indigo,
-                              fontWeight: FontWeight.bold,
-                            )),
-                        SizedBox(height: 10),
-                        Divider(),
                         SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -268,25 +267,11 @@ class CreateInvoice extends StatelessWidget {
                             Text(
                               '₹10,000.00',
                               style: GoogleFonts.lato(
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w500,
                                 fontSize: 15,
                               ),
                             ),
                           ],
-                        ),
-                        SizedBox(height: 30),
-                        Text(
-                          '      PAYMENT METHOD',
-                          style: GoogleFonts.lato(
-                              color: Colors.grey, fontSize: 12),
-                        ),
-                        SizedBox(height: 20),
-                        Text(
-                          '             Add Payment Method',
-                          style: GoogleFonts.lato(
-                              color: Colors.indigo,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15),
                         ),
                       ],
                     ),
@@ -297,33 +282,71 @@ class CreateInvoice extends StatelessWidget {
           ),
           Positioned(
             bottom: 15,
-            right: 20,
-            left: 20,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SavedInvoice(),
-                  ),
-                );
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.indigo,
-                    borderRadius: BorderRadius.all(Radius.circular(5))),
-                width: MediaQuery.of(context).size.width,
-                height: 48,
-                child: Center(
-                  child: Text(
-                    'Save & Preview',
-                    style: GoogleFonts.lato(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+            right: 30,
+            left: 30,
+            child: Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.indigo,
+                          borderRadius: BorderRadius.all(Radius.circular(5))),
+                      width: MediaQuery.of(context).size.width / 2,
+                      height: 48,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.share_outlined,
+                            color: Colors.white,
+                          ),
+                          SizedBox(width: 5),
+                          Text(
+                            'Share',
+                            style: GoogleFonts.lato(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
+                SizedBox(width: 20),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.indigo),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(5))),
+                      width: MediaQuery.of(context).size.width / 2,
+                      height: 48,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.picture_as_pdf_outlined,
+                            color: Colors.indigo,
+                          ),
+                          SizedBox(width: 5),
+                          Text(
+                            'View PDF',
+                            style: GoogleFonts.lato(
+                              color: Colors.indigo,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],

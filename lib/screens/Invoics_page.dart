@@ -7,7 +7,7 @@ class InvoicesPage extends StatelessWidget {
     return Container(
       child: Center(
         child: TextButton(
-          child: Text('Invoices'),
+          child: Text('Create Invoices'),
           onPressed: () {
             Navigator.push(
               context,

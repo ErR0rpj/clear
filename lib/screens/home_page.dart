@@ -1,4 +1,5 @@
 import 'package:clear/data/styles.dart';
+import 'package:clear/screens/createInvoice_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/elusive_icons.dart' as eicon;
 import 'package:fluttericon/font_awesome5_icons.dart' as ficon;
@@ -20,20 +21,30 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Column(
-                    children: [
-                      Icon(
-                        Icons.library_books_rounded,
-                        size: 30,
-                        color: Colors.indigo,
-                      ),
-                      SizedBox(height: 5),
-                      Text(
-                        'Create\nInvoice',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontWeight: FontWeight.w600),
-                      ),
-                    ],
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CreateInvoice(),
+                        ),
+                      );
+                    },
+                    child: Column(
+                      children: [
+                        Icon(
+                          Icons.library_books_rounded,
+                          size: 30,
+                          color: Colors.indigo,
+                        ),
+                        SizedBox(height: 5),
+                        Text(
+                          'Create\nInvoice',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
                   ),
                   Column(
                     children: [
