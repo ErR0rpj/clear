@@ -1,15 +1,32 @@
 import 'package:clear/data/custom_widgets.dart';
 import 'package:clear/screens/Invoics_page.dart';
 import 'package:clear/screens/home_page.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttericon/font_awesome5_icons.dart' as ficon;
 import 'package:fluttericon/elusive_icons.dart' as eicon;
 import 'package:fluttericon/entypo_icons.dart' as enicon;
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-void main() {
+const AndroidNotificationChannel channel = AndroidNotificationChannel(
+  'high_importance_channel', // id
+  'High Importance Notifications', // title
+  'This channel is used for important notifications.', // description
+  importance: Importance.max,
+);
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp();
+  await flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>()
+      ?.createNotificationChannel(channel);
   runApp(Clear());
 }
 
@@ -33,6 +50,22 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
+  bool _newNotification = false;
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseMessaging.onMessage.listen((message) {
+      print('Got message in foreground');
+      print('message is: ${message.data}');
+      if (message.notification != null) {
+        print('messsage also had notificatoins');
+        setState(() {
+          _newNotification = true;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,10 +85,10 @@ class _MainPageState extends State<MainPage> {
               size: 25,
             ),
             activeIcon: Icon(
-              Icons.people_alt,
+              Icons.notifications,
               size: 25,
             ),
-            label: 'Parties',
+            label: 'Notifications',
           ),
           BottomNavigationBarItem(
             icon: Icon(enicon.Entypo.doc_text),
