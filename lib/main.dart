@@ -1,6 +1,9 @@
+import 'dart:async';
 import 'package:clear/data/custom_widgets.dart';
 import 'package:clear/screens/Invoics_page.dart';
 import 'package:clear/screens/home_page.dart';
+import 'package:clear/screens/savedInvoice_page.dart';
+import 'package:clear/services/dynamic_link_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +13,7 @@ import 'package:fluttericon/elusive_icons.dart' as eicon;
 import 'package:fluttericon/entypo_icons.dart' as enicon;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
     'high_importance_channel', // id
@@ -49,19 +53,27 @@ class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
   int _currentIndex = 0;
   bool _newNotification = false;
+  final DynamicLinkService _dynamicLinkService = DynamicLinkService();
+  Timer _timerLink;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
 
     FirebaseMessaging.instance
         .getInitialMessage()
         .then((RemoteMessage message) {
       if (message != null) {
-        print('initial message read. GHUSA');
+        print('initial message read means app was terminated. GHUSA');
+        print(message.messageId);
+        if (message.data['deeplink'] != null) {
+          print(message.data['deeplink']);
+          launch(message.data['deeplink']);
+        }
       }
     });
 
@@ -89,13 +101,49 @@ class _MainPageState extends State<MainPage> {
                     // other properties...
                   ),
                 ))
-            .then((value) => print('finish creting notification'));
+            .then((value) {
+          print('finish creating notification');
+
+          if (message.data['deeplink'] != null) {
+            print(message.data['deeplink']);
+            launch(message.data['deeplink']);
+          }
+        });
       }
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print('A new onMessageOpenedApp event was published!');
+      print(
+          'A new onMessageOpenedApp event was published! Means app was in background');
+      print(message.messageId);
+
+      if (message.data['deeplink'] != null) {
+        print(message.data['deeplink']);
+        launch(message.data['deeplink']);
+      }
     });
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.resumed) {
+      _timerLink = Timer(
+        Duration(milliseconds: 1000),
+        () {
+          _dynamicLinkService.retrieveDynamicLink(context);
+        },
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    if (_timerLink != null) {
+      _timerLink.cancel();
+    }
+    super.dispose();
   }
 
   @override
